@@ -32,8 +32,17 @@ ENV LOGSTASH_VERSION 1:2.2.4-1
 
 RUN set -x \
 	&& apt-get update \
-	&& apt-get install -y --no-install-recommends logstash=$LOGSTASH_VERSION \
+	&& apt-get install -y --no-install-recommends logstash=$LOGSTASH_VERSION git \
 	&& rm -rf /var/lib/apt/lists/*
+
+RUN	cd /tmp && \
+	git clone https://github.com/skbkontur/logstash-output-kontur_elk.git && \
+	git clone https://github.com/skbkontur/logstash-input-http_file.git
+
+RUN	cd /opt/logstash/bin && \
+	./plugin install /tmp/logstash-input-http_file/logstash-input-http_file-0.2.4.gem && \
+	./plugin install /tmp/logstash-output-kontur_elk/logstash-output-kontur_elk-0.1.1.gem && \
+	rm -rf /tmp/*
 
 ENV PATH /opt/logstash/bin:$PATH
 
