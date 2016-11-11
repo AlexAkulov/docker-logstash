@@ -44,6 +44,7 @@ RUN	cd /opt/logstash/bin && \
 	./plugin install /tmp/logstash-output-kontur_elk/logstash-output-kontur_elk-0.1.1.gem && \
 	rm -rf /tmp/*
 
+
 ENV PATH /opt/logstash/bin:$PATH
 
 # necessary for 5.0+ (overriden via "--path.settings", ignored by < 5.0)
@@ -59,4 +60,3 @@ RUN set -ex \
 COPY docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["-e", ""]
