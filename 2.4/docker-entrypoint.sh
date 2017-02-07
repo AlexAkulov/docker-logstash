@@ -1,3 +1,3 @@
 #!/bin/bash
 
-logstash agent -f /etc/logstash/
+logstash agent -w $WORKERS -f /etc/logstash/
